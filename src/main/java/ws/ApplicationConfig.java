@@ -8,10 +8,6 @@ package ws;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
-/**
- *
- * @author LHRIES
- */
 @javax.ws.rs.ApplicationPath("api")
 public class ApplicationConfig extends Application {
 
