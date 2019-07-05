@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,11 +23,7 @@ public class CalendarResource {
 	{
 		List<Calendar> calendar = calendarService.list();
 
-		List<CalendarDTO> dto = new ArrayList<>();
-		for (Calendar calendar1 : calendar) {
-			CalendarDTO calendarDTO = new CalendarDTO(calendar1);
-			dto.add(calendarDTO);
-		}
+		List<CalendarDTO> dto = calendar.stream().map(x -> new CalendarDTO(x)).collect(Collectors.toList());
 
 		return ResponseEntity.ok().body(dto);
 	}
@@ -38,11 +33,7 @@ public class CalendarResource {
 	{
 		List<Calendar> calendar = calendarService.findList(startTime);
 
-		List<CalendarDTO> dto = new ArrayList<>();
-		for (Calendar x : calendar) {
-			CalendarDTO calendarDTO = new CalendarDTO(x);
-			dto.add(calendarDTO);
-		}
+		List<CalendarDTO> dto = calendar.stream().map(x -> new CalendarDTO(x)).collect(Collectors.toList());
 
 		return ResponseEntity.ok().body(dto);
 	}
