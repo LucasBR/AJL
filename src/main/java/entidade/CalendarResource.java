@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,8 +24,12 @@ public class CalendarResource {
 	{
 		List<Calendar> calendar = calendarService.list();
 
-		List<CalendarDTO> dto = calendar.stream().map(x -> new CalendarDTO(x)).collect(Collectors.toList());
-		
+		List<CalendarDTO> dto = new ArrayList<>();
+		for (Calendar calendar1 : calendar) {
+			CalendarDTO calendarDTO = new CalendarDTO(calendar1);
+			dto.add(calendarDTO);
+		}
+
 		return ResponseEntity.ok().body(dto);
 	}
 	
@@ -32,9 +37,13 @@ public class CalendarResource {
 	public ResponseEntity<List<CalendarDTO>> findList(@RequestParam(value="startTime")  @DateTimeFormat(pattern="yyyy-MM-dd") Date startTime)
 	{
 		List<Calendar> calendar = calendarService.findList(startTime);
-		
-		List<CalendarDTO> dto = calendar.stream().map(x -> new CalendarDTO(x)).collect(Collectors.toList());
-		
+
+		List<CalendarDTO> dto = new ArrayList<>();
+		for (Calendar x : calendar) {
+			CalendarDTO calendarDTO = new CalendarDTO(x);
+			dto.add(calendarDTO);
+		}
+
 		return ResponseEntity.ok().body(dto);
 	}
 	
